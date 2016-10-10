@@ -30,18 +30,29 @@ namespace ftse_scraper
                 var change_amount = doc.DocumentNode.SelectSingleNode(cell.XPath + "/td[4]").InnerText;
                 var change_percent = doc.DocumentNode.SelectSingleNode(cell.XPath + "/td[5]").InnerText;
 
-                Console.ForegroundColor = ConsoleColor.Cyan;
-                Console.Write(name + " ");
-                Console.ForegroundColor = ConsoleColor.Green;
-                Console.Write(change_amount + " (" + change_percent + ") ");
-                Console.ForegroundColor = ConsoleColor.White;
-                Console.Write(price);
-
-                Console.WriteLine();
+                PrintStockInformation(name, price, change_amount, change_percent);
             }
 
-
             Console.Read();
+        }
+
+        static void PrintStockInformation(string name, string price, string change_amount, string change_percent)
+        {
+            Console.ForegroundColor = ConsoleColor.Cyan;
+            Console.Write(name + " ");
+            if (change_amount.StartsWith("-"))
+            {
+                Console.ForegroundColor = ConsoleColor.Red;
+            }
+            else
+            {
+                Console.ForegroundColor = ConsoleColor.Green;
+            }
+            Console.Write(change_amount + " (" + change_percent + ") ");
+            Console.ForegroundColor = ConsoleColor.White;
+            Console.Write(price);
+
+            Console.WriteLine();
         }
     }
 }
